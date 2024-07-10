@@ -19,6 +19,7 @@ model Usuario {
   userName   String
   correo     String    @unique
   contrasena String
+  rol        String    @default("Usuario")
   examenes   Examen[]
 }
 
