@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
@@ -81,35 +81,50 @@ const ExamenDetalle = () => {
   
 
   if (!examen) {
-    return <div>Cargando...</div>;
+    return <div className="flex justify-center items-center h-screen">
+             <div className="text-lg font-bold">Cargando...</div>
+           </div>;
   }
+
   return (
-    <div>
-      <h1>{examen.nombreExamen}</h1>
-      <ul>
-        {examen.preguntas.map((pregunta: Pregunta) => (
-          <li key={pregunta.id}>
-            <p>{pregunta.pregunta}</p>
-            <ul>
-              {pregunta.respuestas.map((respuesta: Respuesta) => (
-                <li key={respuesta.id}>
-                  <label>
-                    <input
-                      type="checkbox"
-                      name={`respuesta-${pregunta.id}`}
-                      value={respuesta.id}
-                      checked={respuestas[pregunta.id] === respuesta.id}
-                      onChange={() => handleRespuestaChange(pregunta.id, respuesta.id)}
-                    />
-                    {respuesta.respuesta}
-                  </label>
-                </li>
-              ))}
-            </ul>
-          </li>
-        ))}
-      </ul>
-      <button onClick={handleSubmit}>Enviar Respuestas</button>
+    <div className='flex justify-center items-center h-screen bg-gradient-to-r from-rose-500 to-blue-500'>
+    <div className="">
+      <div className="flex w-full max-w-2xl bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <h1 className="text-center text-2xl font-bold mb-6">{examen.nombreExamen}</h1>
+        <ul className="list-none p-0">
+          {examen.preguntas.map((pregunta: Pregunta) => (
+            <li key={pregunta.id} className="mb-6">
+              <p className="text-lg font-semibold mb-2">{pregunta.pregunta}</p>
+              <ul className="list-none p-0">
+                {pregunta.respuestas.map((respuesta: Respuesta) => (
+                  <li key={respuesta.id} className="mb-2">
+                    <label className="inline-flex items-center">
+                      <input
+                        type="checkbox"
+                        name={`respuesta-${pregunta.id}`}
+                        value={respuesta.id}
+                        checked={respuestas[pregunta.id] === respuesta.id}
+                        onChange={() => handleRespuestaChange(pregunta.id, respuesta.id)}
+                        className="form-checkbox h-5 w-5 text-blue-600"
+                      />
+                      <span className="ml-2 text-gray-700">{respuesta.respuesta}</span>
+                    </label>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ul>
+        <div className="flex justify-center">
+          <button
+            onClick={handleSubmit}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          >
+            Enviar Respuestas
+          </button>
+        </div>
+      </div>
+    </div>
     </div>
   );
 };
