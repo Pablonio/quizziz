@@ -86,8 +86,8 @@ export default function ExamenDetalle() {
            </div>;
   }
   return (
-    <div className="flex justify-center items-center h-screen bg-gradient-to-r from-indigo-500 from-10% via-sky-500">
-      <div className="w-full max-w-2xl bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-h-screen overflow-y-auto">
+    <div className="flex justify-center items-center h-screen bg-gradient-to-r from-indigo-500 via-rose-500">
+      <div className="w-full max-w-2xl bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-h-screen overflow-y-auto bg-sky-50	">
         <h1 className="text-center text-2xl font-bold mb-6">{examen.nombreExamen}</h1>
         <ul className="list-none p-0">
           {examen.preguntas.map((pregunta: Pregunta) => (
