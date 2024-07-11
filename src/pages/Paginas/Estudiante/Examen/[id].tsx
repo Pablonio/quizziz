@@ -1,9 +1,28 @@
+// pages/Paginas/Estudiante/ExamenDetalle.tsx
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { Examen, Pregunta, Respuesta } from './Componentes/interfaces';
+
+// Interfaces
+interface Respuesta {
+  id: number;
+  respuesta: string;
+  correcta: boolean;
+}
+
+interface Pregunta {
+  id: number;
+  pregunta: string;
+  respuestas: Respuesta[];
+}
+
+interface Examen {
+  id: number;
+  nombreExamen: string;
+  preguntas: Pregunta[];
+}
 
 export default function ExamenDetalle() {
   const router = useRouter();
@@ -35,59 +54,54 @@ export default function ExamenDetalle() {
 
   const handleSubmit = async () => {
     try {
-      const estudianteId = Cookies.get('id'); // Obtener el ID del estudiante de las cookies
+      const estudianteId = Cookies.get('id');
       if (!estudianteId) {
         alert('No se encontró la ID del estudiante en las cookies');
         return;
       }
-  
+
       const respuestasEnviar = Object.entries(respuestas).map(([preguntaId, respuestaId]) => ({
         preguntaId: parseInt(preguntaId),
         respuestaId: respuestaId as number,
       }));
-  
-      // Enviar respuestas del estudiante al servidor
+
       await axios.post('/api/ExamenEstudiantes/guardar-respuestas', {
         examenId: id,
         estudianteId: parseInt(estudianteId),
         respuestas: respuestasEnviar,
       });
-      console.log('Respuestas enviadas:', respuestasEnviar);
-  
-      // Recuperar la puntuación de las respuestas del estudiante
+
       const respuestaIds = respuestasEnviar.map(respuesta => respuesta.respuestaId);
-      const puntuaciones = [];
-      for (const respuestaId of respuestaIds) {
-        const response = await axios.post('/api/Respuestas/recuperar-respuest', { respuestaId });
-        puntuaciones.push(response.data.puntucion);
-      }
-  
-      // Sumar las puntuaciones
+      const puntuaciones = await Promise.all(respuestaIds.map(async respuestaId => {
+        const response = await axios.post<{ puntucion: number }>('/api/Respuestas/recuperar-respuesta', { respuestaId });
+        return response.data.puntucion;
+      }));
+
       const puntajeTotal = puntuaciones.reduce((acum, puntuacion) => acum + puntuacion, 0);
-  
-      // Guardar la nota final del estudiante
-      const response = await axios.post('/api/Nota/crear-nota', {
+
+      await axios.post('/api/Nota/crear-nota', {
         puntajeTotal,
         examenEstudianteId: parseFloat(estudianteId), // Convert to float
       });
 
-      console.log('Nota final guardada:', response.data);
-  
+      console.log('Nota final guardada');
     } catch (error) {
       console.error('Error al enviar respuestas:', error);
       alert('Error al enviar respuestas');
     }
   };
-  
 
   if (!examen) {
-    return <div className="flex justify-center items-center h-screen">
-             <div className="text-lg font-bold">Cargando...</div>
-           </div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-lg font-bold">Cargando...</div>
+      </div>
+    );
   }
+
   return (
     <div className="flex justify-center items-center h-screen bg-gradient-to-r from-indigo-500 via-rose-500">
-      <div className="w-full max-w-2xl bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-h-screen overflow-y-auto bg-sky-50	">
+      <div className="w-full max-w-2xl bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-h-screen overflow-y-auto bg-sky-50">
         <h1 className="text-center text-2xl font-bold mb-6">{examen.nombreExamen}</h1>
         <ul className="list-none p-0">
           {examen.preguntas.map((pregunta: Pregunta) => (
@@ -124,7 +138,7 @@ export default function ExamenDetalle() {
       </div>
     </div>
   );
-};
+}
 
 
 
