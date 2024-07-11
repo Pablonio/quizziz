@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import toast, { Toaster } from 'react-hot-toast';
 
 export interface Respuesta {
   id: number;
@@ -69,7 +70,7 @@ export default function ExamenDetalle() {
         estudianteId: parseInt(estudianteId),
         respuestas: respuestasEnviar,
       });
-      console.log('Respuestas enviadas:', respuestasEnviar);
+      toast.success('Respuestas enviadas correctamente');
   
       // Recuperar la puntuación de las respuestas del estudiante
       const respuestaIds = respuestasEnviar.map(respuesta => respuesta.respuestaId);
@@ -78,6 +79,7 @@ export default function ExamenDetalle() {
         const response = await axios.post('/api/Respuestas/recuperar-respuest', { respuestaId });
         puntuaciones.push(response.data.puntucion);
       }
+
   
       // Sumar las puntuaciones
       const puntajeTotal = puntuaciones.reduce((acum, puntuacion) => acum + puntuacion, 0);
@@ -88,7 +90,17 @@ export default function ExamenDetalle() {
         examenEstudianteId: parseFloat(estudianteId), // Convert to float
       });
 
-      console.log('Nota final guardada:', response.data);
+      if (!response.data.puntajeTotal) {
+        toast.error('No se pudo guardar la nota');
+        return;
+      } else {
+        toast.success(`Tu Nota es: ${response.data.puntajeTotal}`);
+        setTimeout(() => {
+          router.push('/Paginas/Estudiante');
+        }, 3000); // Esperar 3 segundos (3000 milisegundos) antes de redirigir
+      }
+      
+
   
     } catch (error) {
       console.error('Error al enviar respuestas:', error);
@@ -139,6 +151,7 @@ export default function ExamenDetalle() {
           </button>
         </div>
       </div>
+      <Toaster />
     </div>
   );
 };
