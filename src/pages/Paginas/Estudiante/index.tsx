@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 
-const Estudiante = () => {
+export default function Estudiante() {
   const [examenes, setExamenes] = useState<any[]>([]);
   const router = useRouter();
 
@@ -46,5 +46,4 @@ const Estudiante = () => {
   );
 };
 
-export default Estudiante;
 

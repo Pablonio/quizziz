@@ -8,7 +8,7 @@ interface CrearExamenProps {
   setExamenId: (id: number) => void;
 }
 
-const CrearExamen: React.FC<CrearExamenProps> = ({ setExamenId }) => {
+export default function CrearExamen({ setExamenId }: CrearExamenProps) {
   const [nombreExamen, setNombreExamen] = useState('');
   const [estado, setEstado] = useState('activo');
   const [usuarioId, setUsuarioId] = useState(0); 
@@ -87,6 +87,5 @@ const CrearExamen: React.FC<CrearExamenProps> = ({ setExamenId }) => {
   );
 };
 
-export default CrearExamen;
 
 

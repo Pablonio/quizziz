@@ -8,7 +8,7 @@ interface AgregarPreguntasProps {
   puntuacionRestante: number;
 }
 
-const AgregarPreguntas: React.FC<AgregarPreguntasProps> = ({ examenId, setPreguntaId, puntuacionRestante }) => {
+export default function AgregarPreguntas({ examenId, setPreguntaId, puntuacionRestante }: AgregarPreguntasProps) {
   const [pregunta, setPregunta] = useState('');
 
   const handlePreguntaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,4 +57,3 @@ const AgregarPreguntas: React.FC<AgregarPreguntasProps> = ({ examenId, setPregun
   );
 };
 
-export default AgregarPreguntas;

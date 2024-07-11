@@ -23,7 +23,7 @@ interface Examen {
   preguntas: Pregunta[];
 }
 
-const ExamenDetalle: React.FC = () => {
+export default function ExamenDetalle() {
   const router = useRouter();
   const { id } = router.query;
   const [examen, setExamen] = useState<Examen | null>(null);
@@ -69,4 +69,3 @@ const ExamenDetalle: React.FC = () => {
   );
 };
 
-export default ExamenDetalle;

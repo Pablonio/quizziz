@@ -14,7 +14,7 @@ interface AgregarRespuestasProps {
   puntuacionRestante: number;
 }
 
-const AgregarRespuestas: React.FC<AgregarRespuestasProps> = ({ preguntaId, setPreguntaId, puntuacionRestante }) => {
+export default function AgregarRespuestas({ preguntaId, setPreguntaId, puntuacionRestante }: AgregarRespuestasProps) {
   const [opciones, setOpciones] = useState<Opcion[]>([{ respuesta: '', puntucion: 0, correcta: false }]);
   const [totalPuntuacion, setTotalPuntuacion] = useState(0);
 
@@ -142,4 +142,3 @@ const AgregarRespuestas: React.FC<AgregarRespuestasProps> = ({ preguntaId, setPr
   );
 };
 
-export default AgregarRespuestas;

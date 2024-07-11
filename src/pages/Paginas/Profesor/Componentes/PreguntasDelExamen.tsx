@@ -20,7 +20,7 @@ interface Respuesta {
   puntucion: number;
 }
 
-const PreguntasDelExamen: React.FC<PreguntasDelExamenProps> = ({ examenId }) => {
+export default function PreguntasDelExamen({ examenId }: PreguntasDelExamenProps) {
   const [preguntas, setPreguntas] = useState<Pregunta[]>([]);
   const [addingPregunta, setAddingPregunta] = useState(false);
   const [addingRespuestas, setAddingRespuestas] = useState(false);
@@ -107,4 +107,3 @@ const PreguntasDelExamen: React.FC<PreguntasDelExamenProps> = ({ examenId }) => 
   );
 };
 
-export default PreguntasDelExamen;

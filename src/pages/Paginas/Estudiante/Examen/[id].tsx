@@ -5,7 +5,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { Examen, Pregunta, Respuesta } from './Componentes/interfaces';
 
-const ExamenDetalle = () => {
+export default function ExamenDetalle() {
   const router = useRouter();
   const { id } = router.query;
   const [examen, setExamen] = useState<Examen | null>(null);
@@ -85,11 +85,9 @@ const ExamenDetalle = () => {
              <div className="text-lg font-bold">Cargando...</div>
            </div>;
   }
-
   return (
-    <div className='flex justify-center items-center h-screen bg-gradient-to-r from-rose-500 to-blue-500'>
     <div className="flex justify-center items-center h-screen">
-      <div className="w-full max-w-2xl bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <div className="w-full max-w-2xl bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-h-screen overflow-y-auto">
         <h1 className="text-center text-2xl font-bold mb-6">{examen.nombreExamen}</h1>
         <ul className="list-none p-0">
           {examen.preguntas.map((pregunta: Pregunta) => (
@@ -125,9 +123,8 @@ const ExamenDetalle = () => {
         </div>
       </div>
     </div>
-    </div>
   );
 };
 
-export default ExamenDetalle;
+
 

@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import CrearExamen from './Componentes/CrearExamen';
 import PreguntasDelExamen from './Componentes/PreguntasDelExamen';
 
-const PadreDeLosTres: React.FC = () => {
+export default function PadreDeLosTres() {
   const [examenId, setExamenId] = useState<number | null>(null);
   const [examenes, setExamenes] = useState<any[]>([]);
   const router = useRouter();
@@ -59,6 +59,5 @@ const PadreDeLosTres: React.FC = () => {
   );
 };
 
-export default PadreDeLosTres;
 
 
