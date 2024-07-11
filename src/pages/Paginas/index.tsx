@@ -27,9 +27,7 @@ export default function Paginas() {
       try {
         const response = await axios.post('/api/inicio-sesionUsuario/register', formData);
         toast.success('Registro exitoso');
-        console.log('Registration successful:', response.data);
       } catch (error) {
-        console.error('No se pudo registrar:', error);
         toast.error('Error en el registro');
       }
     } else {

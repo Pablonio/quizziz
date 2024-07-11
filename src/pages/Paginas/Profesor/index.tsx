@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import CrearExamen from './Componentes/CrearExamen';
 import PreguntasDelExamen from './Componentes/PreguntasDelExamen';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function PadreDeLosTres() {
   const [examenId, setExamenId] = useState<number | null>(null);
@@ -18,11 +19,12 @@ export default function PadreDeLosTres() {
         try {
           const response = await axios.post('/api/Examen/recuperar-todos-los-examenes', { userId });
           setExamenes(response.data);
+          toast.success('Se han recuperado todos los exámenes del usuario.');
         } catch (error) {
-          console.error('Error al recuperar exámenes:', error);
+            toast.error('Error al recuperar exámenes del usuario.');
         }
       } else {
-        console.error('No se encontró la ID del usuario en las cookies');
+        toast.error('No se encontró la ID del usuario en las cookies.');
       }
     };
 
@@ -54,6 +56,7 @@ export default function PadreDeLosTres() {
           </ul>
         </div>
       )}
+      <Toaster/>
     </div>
   );
 };

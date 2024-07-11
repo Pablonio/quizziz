@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import AgregarPreguntas from './AgregarPreguntas';
 import AgregarRespuestas from './AgregarRespuestas';
+import toast, { Toaster } from 'react-hot-toast';
 
 interface PreguntasDelExamenProps {
   examenId: number;
@@ -41,8 +42,9 @@ export default function PreguntasDelExamen({ examenId }: PreguntasDelExamenProps
         return acc + sumaRespuestas;
       }, 0);
       setTotalPuntuacion(puntuacion);
+      toast.success('Se han recuperado todas las preguntas del examen.');
     } catch (error) {
-      console.error('Error al obtener preguntas del examen:', error);
+      toast.error('Error al obtener preguntas del examen.');
     }
   };
 
@@ -103,6 +105,7 @@ export default function PreguntasDelExamen({ examenId }: PreguntasDelExamenProps
         <p className="mt-6 text-red-500">No puedes agregar más preguntas, has alcanzado la puntuación máxima de {MAX_PUNTUACION}</p>
       )}
     </div>
+    <Toaster/>
     </div>
   );
 };

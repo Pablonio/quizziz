@@ -3,6 +3,7 @@ import React, { useState, FormEvent, useEffect, ChangeEvent } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import {useRouter} from 'next/router';
+import toast, { Toaster } from 'react-hot-toast';
 
 interface CrearExamenProps {
   setExamenId: (id: number) => void;
@@ -41,9 +42,9 @@ export default function CrearExamen({ setExamenId }: CrearExamenProps) {
       });
       const examenId = response.data.id;
       setExamenId(examenId);
-      console.log('Examen creado con éxito:', response.data);
+      toast.success('Examen creado con éxito.');
     } catch (error) {
-      console.error('Error al crear examen:', error);
+        toast.error('Error al crear examen.');
     }
   };
 
@@ -82,7 +83,7 @@ export default function CrearExamen({ setExamenId }: CrearExamenProps) {
           </button>
         </div>
       </form>
-      
+      <Toaster/>
     </div>
   );
 };

@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast';
 
 interface Respuesta {
   id: number;
@@ -33,8 +34,9 @@ export default function ExamenDetalle() {
         try {
           const response = await axios.post('/api/Examen/recuperar-examen', { examenId: id });
           setExamen(response.data);
+          toast.success('Se ha recuperado el examen.');
         } catch (error) {
-          console.error('Error al recuperar el examen:', error);
+            toast.error('Error al recuperar el examen.');
         }
       }
     };
@@ -64,6 +66,7 @@ export default function ExamenDetalle() {
           </li>
         ))}
       </ul>
+      <Toaster/>
     </div>
   );
 };

@@ -1,6 +1,7 @@
 
 import React, { useState, FormEvent } from 'react';
 import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast';
 
 interface Opcion {
   respuesta: string;
@@ -52,7 +53,7 @@ export default function AgregarRespuestas({ preguntaId, setPreguntaId, puntuacio
     e.preventDefault();
     try {
       if (totalPuntuacion > puntuacionRestante) {
-        alert('La puntuación total de las respuestas excede la puntuación restante del examen.');
+        toast.error('La puntuación total de las respuestas excede la puntuación restante del examen.');
         return;
       }
 
@@ -67,10 +68,10 @@ export default function AgregarRespuestas({ preguntaId, setPreguntaId, puntuacio
           })
         )
       );
-      console.log('Respuestas creadas con éxito');
+      toast.success('Respuestas creadas con éxito.');
       setPreguntaId(null); // Volver a null para permitir agregar otra pregunta
     } catch (error) {
-      console.error('Error al crear respuestas:', error);
+      toast.error('Error al crear respuestas.');
     }
   };
 
@@ -138,6 +139,7 @@ export default function AgregarRespuestas({ preguntaId, setPreguntaId, puntuacio
           </button>
         </div>
       </form>
+      <Toaster/>
     </div>
   );
 };

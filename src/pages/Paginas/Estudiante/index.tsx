@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import toast, {  Toaster } from 'react-hot-toast';
 
 export default function Estudiante() {
   const [examenes, setExamenes] = useState<any[]>([]);
@@ -12,6 +13,7 @@ export default function Estudiante() {
       try {
         const response = await axios.get('/api/Examen/recuperar-todos');
         setExamenes(response.data);
+        toast.success('Se han recuperado todos los exámenes.');
       } catch (error) {
         console.error('Error al recuperar exámenes:', error);
       }
@@ -42,6 +44,7 @@ export default function Estudiante() {
           ))}
         </ul>
       </div>
+      <Toaster/>
     </div>
   );
 };

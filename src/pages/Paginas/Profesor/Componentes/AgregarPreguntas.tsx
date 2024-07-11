@@ -1,6 +1,7 @@
 
 import React, { useState, FormEvent } from 'react';
 import axios from 'axios';
+import toast, {Toaster } from 'react-hot-toast';
 
 interface AgregarPreguntasProps {
   examenId: number;
@@ -24,7 +25,7 @@ export default function AgregarPreguntas({ examenId, setPreguntaId, puntuacionRe
       });
       const preguntaId = response.data.id; // Obtener el ID de la pregunta creada
       setPreguntaId(preguntaId);
-      console.log('Pregunta creada con éxito:', response.data);
+      toast.success('Pregunta creada con éxito.');
     } catch (error) {
       console.error('Error al crear pregunta:', error);
     }
@@ -53,6 +54,7 @@ export default function AgregarPreguntas({ examenId, setPreguntaId, puntuacionRe
           </button>
         </div>
       </form>
+      <Toaster/>
     </div>
   );
 };
