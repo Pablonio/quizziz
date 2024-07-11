@@ -81,7 +81,9 @@ const PreguntasDelExamen: React.FC<PreguntasDelExamenProps> = ({ examenId }) => 
             <ol type="a">
               {pregunta.respuestas.map((respuesta, respuestaIndex) => (
                 <li key={respuesta.id}>
-                  {respuesta.respuesta} - Puntuación: {respuesta.puntucion}
+                  <p className='text-neutral-600'>
+                    {respuesta.respuesta} - Puntuación: {respuesta.puntucion}
+                  </p>   
                 </li>
               ))}
             </ol>

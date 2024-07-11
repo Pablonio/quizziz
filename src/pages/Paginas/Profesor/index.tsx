@@ -1,3 +1,4 @@
+// PadreDeLosTres.tsx
 'use client';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -34,19 +35,19 @@ const PadreDeLosTres: React.FC = () => {
   };
 
   return (
-    <div className='bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%'>
+    <div className="bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% min-h-screen p-8">
       {!examenId ? (
         <CrearExamen setExamenId={setExamenId} />
       ) : (
         <PreguntasDelExamen examenId={examenId} />
       )}
       {!examenId && (
-        <div>
-          <h2>Exámenes del Usuario</h2>
-          <ul>
+        <div className="mt-8">
+          <h2 className="text-xl font-bold text-white mb-4">Exámenes del Usuario</h2>
+          <ul className="space-y-2">
             {examenes.map((examen) => (
               <li key={examen.id}>
-                <a onClick={() => handleExamenClick(examen.id)} className="cursor-pointer text-blue-500">
+                <a onClick={() => handleExamenClick(examen.id)} className="cursor-pointer text-blue-500 hover:text-blue-700">
                   {examen.nombreExamen}
                 </a>
               </li>
@@ -59,4 +60,5 @@ const PadreDeLosTres: React.FC = () => {
 };
 
 export default PadreDeLosTres;
+
 

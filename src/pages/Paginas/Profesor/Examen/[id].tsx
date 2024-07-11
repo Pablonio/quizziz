@@ -1,3 +1,4 @@
+// ExamenDetalle.tsx
 'use client';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
@@ -43,20 +44,21 @@ const ExamenDetalle: React.FC = () => {
   }, [id]);
 
   if (!examen) {
-    return <div>Cargando...</div>;
+    return <div className="text-center text-xl mt-4">Cargando...</div>;
   }
 
   return (
-    <div>
-      <h1>{examen.nombreExamen}</h1>
-      <ul>
+    <div className="max-w-3xl mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">{examen.nombreExamen}</h1>
+      <ul className="space-y-4">
         {examen.preguntas.map((pregunta: Pregunta) => (
-          <li key={pregunta.id}>
-            <p>{pregunta.pregunta}</p>
-            <ul>
+          <li key={pregunta.id} className="bg-white p-4 rounded-lg shadow-md">
+            <p className="font-semibold">{pregunta.pregunta}</p>
+            <ul className="mt-2 space-y-2">
               {pregunta.respuestas.map((respuesta: Respuesta) => (
-                <li key={respuesta.id}>
-                  {respuesta.respuesta} - Puntuación: {respuesta.puntucion}
+                <li key={respuesta.id} className="flex justify-between">
+                  <span>{respuesta.respuesta}</span>
+                  <span className="text-gray-600">Puntuación: {respuesta.puntucion}</span>
                 </li>
               ))}
             </ul>
