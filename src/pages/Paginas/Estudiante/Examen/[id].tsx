@@ -88,8 +88,8 @@ const ExamenDetalle = () => {
 
   return (
     <div className='flex justify-center items-center h-screen bg-gradient-to-r from-rose-500 to-blue-500'>
-    <div className="">
-      <div className="flex w-full max-w-2xl bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <div className="flex justify-center items-center h-screen">
+      <div className="w-full max-w-2xl bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <h1 className="text-center text-2xl font-bold mb-6">{examen.nombreExamen}</h1>
         <ul className="list-none p-0">
           {examen.preguntas.map((pregunta: Pregunta) => (
