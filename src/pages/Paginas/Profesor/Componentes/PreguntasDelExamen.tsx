@@ -1,3 +1,4 @@
+'use client';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import AgregarPreguntas from './AgregarPreguntas';
@@ -75,7 +76,7 @@ const PreguntasDelExamen: React.FC<PreguntasDelExamenProps> = ({ examenId }) => 
       <p className='text-base'>Puntuación Restante: {puntuacionRestante}</p>
       <ol className='mt-4'>
         {preguntas.map((pregunta, preguntaIndex) => (
-          <li key={pregunta.id}>
+          <li key={pregunta.id }>
             {pregunta.pregunta}
             <ol type="a">
               {pregunta.respuestas.map((respuesta, respuestaIndex) => (
