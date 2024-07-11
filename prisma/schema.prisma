@@ -15,46 +15,64 @@ datasource db {
 }
 
 model Usuario {
-  id         Int       @id @default(autoincrement())
-  userName   String
-  correo     String    @unique
-  contrasena String
-  rol        String    @default("Usuario")
-  examenes   Examen[]
+  id          Int         @id @default(autoincrement())
+  userName    String
+  correo      String      @unique
+  contrasena  String
+  rol         String      @default("Estudiante")
+  examenesEstudiantes ExamenesEstudiantes[]
+  examenes    Examen[]
 }
 
 model Examen {
-  id           Int           @id @default(autoincrement())
-  nombreExamen String
-  usuarioId    Int
-  usuario      Usuario       @relation(fields: [usuarioId], references: [id])
-  preguntas    Pregunta[]
-  notasFinales NotaFinal[]
-  estado       String
+  id                Int                @id @default(autoincrement())
+  nombreExamen      String
+  usuarioId         Int
+  usuario           Usuario            @relation(fields: [usuarioId], references: [id])
+  preguntas         Pregunta[]
+  examenesEstudiantes ExamenesEstudiantes[]
+  estado            String
 }
 
 model Pregunta {
-  id         Int         @id @default(autoincrement())
-  pregunta   String
-  examenId   Int
-  examen     Examen      @relation(fields: [examenId], references: [id])
-  respuestas Respuesta[]
+  id                Int                 @id @default(autoincrement())
+  pregunta          String
+  examenId          Int
+  examen            Examen    @relation(fields: [examenId], references: [id])
+  respuestas        Respuesta[]
+  examenesEstudiantes ExamenesEstudiantes[]  // Relación inversa
 }
 
 model Respuesta {
-  id            Int        @id @default(autoincrement())
-  respuesta     String
-  puntucion     Int
-  preguntaId    Int
-  pregunta      Pregunta   @relation(fields: [preguntaId], references: [id])
-  correcta      Boolean   
+  id                Int                @id @default(autoincrement())
+  respuesta         String
+  puntucion         Int
+  preguntaId        Int
+  pregunta          Pregunta           @relation(fields: [preguntaId], references: [id])
+  correcta          Boolean   
+  examenesEstudiantes ExamenesEstudiantes[]  
 }
 
+
+
+model ExamenesEstudiantes {
+  id                Int                @id @default(autoincrement())
+  examenId          Int
+  estudianteId      Int
+  Usuario           Usuario            @relation(fields: [estudianteId], references: [id])
+  examen            Examen   @relation(fields: [examenId], references: [id])
+  respuestaId       Int
+  respuestas        Respuesta          @relation(fields: [respuestaId], references: [id])
+  examenesEstudiantes NotaFinal[]  
+  preguntaId        Int
+  pregunta          Pregunta           @relation(fields: [preguntaId], references: [id])
+
+}
 
 model NotaFinal {
-  id            Int          @id @default(autoincrement())
-  examenId      Int
-  examen        Examen       @relation(fields: [examenId], references: [id])
-  puntajeTotal  Float  
-
+  id                Int                @id @default(autoincrement())
+  puntajeTotal      Float  
+  examenEstudianteId Int
+  examenEstudiante  ExamenesEstudiantes   @relation(fields: [examenEstudianteId], references: [id])
 }
+

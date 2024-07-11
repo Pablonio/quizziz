@@ -13,7 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         try {
         const user = await db.usuario.create({
             data: {
-                rol: "Usuario",
+                rol: "Estudiante",
                 userName,
                 correo,
                 contrasena: hashedPassword,
