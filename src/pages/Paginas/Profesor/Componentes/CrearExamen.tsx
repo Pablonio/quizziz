@@ -1,4 +1,4 @@
-'use client';
+
 import React, { useState, FormEvent, useEffect, ChangeEvent } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
