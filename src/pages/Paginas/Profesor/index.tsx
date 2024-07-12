@@ -44,7 +44,7 @@ export default function PadreDeLosTres() {
       )}
       {!examenId && (
         <div className="mt-8">
-          <h2 className="text-xl font-bold text-white mb-4">Hola Sebas</h2>
+          <h2 className="text-xl font-bold text-white mb-4">Exámenes del Usuario</h2>
           <ul className="space-y-2">
             {examenes.map((examen) => (
               <li key={examen.id}>
